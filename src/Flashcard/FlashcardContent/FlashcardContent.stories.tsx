@@ -10,10 +10,10 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-const Template: Story<FlashcardContentProps> = (args: FlashcardContentProps) => {
+const Template: Story<FlashcardContentProps> = ({ children, ...args }: FlashcardContentProps) => {
   const classes = useStyles();
 
-  return <FlashcardContent {...args}>{args.children}</FlashcardContent>;
+  return <FlashcardContent {...args}>{children}</FlashcardContent>;
 };
 
 export const Playground = Template.bind({});
