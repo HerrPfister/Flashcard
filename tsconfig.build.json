@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES5",
+    "module": "ES6",
+    "lib": ["ES6", "DOM", "DOM.Iterable"],
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "declaration": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "incremental": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "resolveJsonModule": true,
+    "tsBuildInfoFile": "./.build-cache/tsc"
+  },
+  "include": ["src/**/*", "src/**/*.json"],
+  "exclude": ["node_modules"]
+}
