@@ -3,18 +3,38 @@ import clsx from 'clsx';
 import { createStyles, Paper, makeStyles, PaperProps, Theme } from '@material-ui/core';
 
 export type FlashcardProps = {
+  Back: ReactNode;
   BackSideProps?: PaperProps;
-  FrontSideProps?: PaperProps;
-  back: ReactNode;
   className?: string;
   disabled?: boolean;
-  front: ReactNode;
+  Front: ReactNode;
+  FrontSideProps?: PaperProps;
   onClick?: (flipped: boolean) => void;
+  showBackSideAdornment?: boolean;
+  showFrontSideAdornment?: boolean;
   startFlipped?: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    adornment: {
+      '&::after': {
+        content: "''",
+        width: 0,
+        height: 0,
+        borderStyle: 'solid',
+        borderWidth: '0 15px 15px 0',
+        right: 0,
+        top: 0,
+        position: 'absolute',
+      },
+    },
+    back: {
+      transform: 'rotateY(180deg)',
+      '&::after': {
+        borderColor: `transparent ${theme.palette.secondary.light} transparent transparent`,
+      },
+    },
     container: {
       backgroundColor: 'transparent',
       width: 300,
@@ -25,6 +45,18 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 0,
       '&:focus': {
         outline: 'none',
+      },
+    },
+    disabled: {
+      backgroundColor: 'rgba(249, 249, 249, 0.25)',
+    },
+    flipped: {
+      transform: 'rotateY(180deg)',
+    },
+    front: {
+      transform: 'rotateY(0deg)',
+      '&::after': {
+        borderColor: `transparent ${theme.palette.primary.light} transparent transparent`,
       },
     },
     inner: {
@@ -41,38 +73,30 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
-    flipped: {
-      transform: 'rotateY(180deg)',
-    },
     side: {
-      display: 'flex',
       alignItems: 'center',
+      backfaceVisibility: 'hidden',
+      display: 'flex',
+      height: 200,
       justifyContent: 'center',
+      padding: theme.spacing(2),
       position: 'absolute',
       width: 300,
-      height: 200,
-      backfaceVisibility: 'hidden',
-      padding: theme.spacing(2),
-    },
-    disabled: {
-      backgroundColor: 'rgba(249, 249, 249, 0.25)',
-    },
-    back: {
-      transform: 'rotateY(180deg)',
     },
   }),
 );
 
 const Flashcard = ({
-  back,
-  front,
+  Back,
   BackSideProps,
-  FrontSideProps,
-  className,
-  startFlipped = false,
   disabled = false,
+  className,
+  Front,
+  FrontSideProps,
+  showBackSideAdornment = true,
+  showFrontSideAdornment = false,
+  startFlipped = false,
   onClick = () => {},
-  ...props
 }: FlashcardProps): JSX.Element => {
   const classes = useStyles();
 
@@ -87,19 +111,31 @@ const Flashcard = ({
   };
 
   return (
-    <button {...props} className={clsx(classes.container, className)} onClick={handleClick} disabled={disabled}>
+    <button className={clsx(classes.container, className)} onClick={handleClick} disabled={disabled}>
       <div className={clsx(classes.inner, { [classes.flipped]: flipped }, { [classes.disabled]: disabled })}>
         <Paper
           {...FrontSideProps}
-          className={clsx(FrontSideProps?.className, classes.side, { [classes.disabled]: disabled })}
+          className={clsx(
+            FrontSideProps?.className,
+            classes.front,
+            classes.side,
+            { [classes.disabled]: disabled },
+            { [classes.adornment]: showFrontSideAdornment },
+          )}
         >
-          {front}
+          {Front}
         </Paper>
         <Paper
           {...BackSideProps}
-          className={clsx(BackSideProps?.className, classes.back, classes.side, { [classes.disabled]: disabled })}
+          className={clsx(
+            BackSideProps?.className,
+            classes.back,
+            classes.side,
+            { [classes.disabled]: disabled },
+            { [classes.adornment]: showBackSideAdornment },
+          )}
         >
-          {back}
+          {Back}
         </Paper>
       </div>
     </button>

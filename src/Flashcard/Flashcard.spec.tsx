@@ -13,7 +13,7 @@ describe('Flashcard', () => {
     const givenFront = chance.word();
     const givenBack = chance.word();
 
-    render(<Flashcard front={givenFront} back={givenBack} />);
+    render(<Flashcard Front={givenFront} Back={givenBack} />);
 
     const button = screen.getByRole('button');
 
@@ -27,7 +27,7 @@ describe('Flashcard', () => {
     it('should flip the card', () => {
       const onClickMock = jest.fn();
 
-      render(<Flashcard front={chance.word()} back={chance.word()} onClick={onClickMock} />);
+      render(<Flashcard Front={chance.word()} Back={chance.word()} onClick={onClickMock} />);
 
       const button = screen.getByRole('button');
 
@@ -49,7 +49,7 @@ describe('Flashcard', () => {
     it('should disable the card', () => {
       const onClickMock = jest.fn();
 
-      render(<Flashcard front={chance.word()} back={chance.word()} onClick={onClickMock} disabled={true} />);
+      render(<Flashcard Front={chance.word()} Back={chance.word()} onClick={onClickMock} disabled={true} />);
 
       const button = screen.getByRole('button');
 
@@ -66,7 +66,7 @@ describe('Flashcard', () => {
     it('should render a flipped card', () => {
       const onClickMock = jest.fn();
 
-      render(<Flashcard front={chance.word()} back={chance.word()} onClick={onClickMock} startFlipped={true} />);
+      render(<Flashcard Front={chance.word()} Back={chance.word()} onClick={onClickMock} startFlipped={true} />);
 
       const button = screen.getByRole('button');
 
