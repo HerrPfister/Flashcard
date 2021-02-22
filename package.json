@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "start-storybook -p 6006",
-    "build": "build-storybook --quiet",
+    "build": "tsc -p ./tsconfig.build.json",
     "lint": "eslint ./src",
     "test": "jest"
   },
