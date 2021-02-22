@@ -3,14 +3,14 @@ import clsx from 'clsx';
 import { createStyles, Paper, makeStyles, PaperProps, Theme } from '@material-ui/core';
 
 export type FlashcardProps = {
-  className?: string;
-  front: ReactNode;
-  back: ReactNode;
-  startFlipped?: boolean;
-  disabled?: boolean;
-  FrontSideProps?: PaperProps;
   BackSideProps?: PaperProps;
+  FrontSideProps?: PaperProps;
+  back: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  front: ReactNode;
   onClick?: (flipped: boolean) => void;
+  startFlipped?: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 300,
       height: 200,
       perspective: 1000,
+      padding: 0,
+      margin: 0,
+      border: 0,
+      '&:focus': {
+        outline: 'none',
+      },
     },
     inner: {
       position: 'relative',
@@ -30,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       transformStyle: 'preserve-3d',
       '&:hover': {
         cursor: 'pointer',
+        '&$disabled': {
+          cursor: 'not-allowed',
+        },
       },
     },
     flipped: {
@@ -45,11 +54,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backfaceVisibility: 'hidden',
       padding: theme.spacing(2),
     },
-    // TODO: Get this working
-    // disabled: {
-    //   backgroundColor: theme.palette.common.black,
-    //   opacity: 0.75,
-    // },
+    disabled: {
+      backgroundColor: 'rgba(249, 249, 249, 0.25)',
+    },
     back: {
       transform: 'rotateY(180deg)',
     },
@@ -57,41 +64,45 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Flashcard = ({
-  front,
-  FrontSideProps,
   back,
+  front,
   BackSideProps,
+  FrontSideProps,
   className,
-  startFlipped,
-  disabled,
-  onClick,
+  startFlipped = false,
+  disabled = false,
+  onClick = () => {},
   ...props
 }: FlashcardProps): JSX.Element => {
   const classes = useStyles();
 
-  const [flipped, setFlipped] = useState(startFlipped || false);
+  const [flipped, setFlipped] = useState(startFlipped);
 
   const handleClick = () => {
-    if (disabled) return;
-
     const newFlipped = !flipped;
 
     setFlipped(newFlipped);
 
-    if (onClick) onClick(newFlipped);
+    onClick(newFlipped);
   };
 
   return (
-    <div {...props} className={clsx(classes.container, className)} onClick={handleClick}>
+    <button {...props} className={clsx(classes.container, className)} onClick={handleClick} disabled={disabled}>
       <div className={clsx(classes.inner, { [classes.flipped]: flipped }, { [classes.disabled]: disabled })}>
-        <Paper {...FrontSideProps} className={clsx(FrontSideProps?.className, classes.side)}>
+        <Paper
+          {...FrontSideProps}
+          className={clsx(FrontSideProps?.className, classes.side, { [classes.disabled]: disabled })}
+        >
           {front}
         </Paper>
-        <Paper {...BackSideProps} className={clsx(BackSideProps?.className, classes.back, classes.side)}>
+        <Paper
+          {...BackSideProps}
+          className={clsx(BackSideProps?.className, classes.back, classes.side, { [classes.disabled]: disabled })}
+        >
           {back}
         </Paper>
       </div>
-    </div>
+    </button>
   );
 };
 
