@@ -3,16 +3,18 @@ import { Story } from '@storybook/react';
 
 import Flashcard, { FlashcardProps } from './Flashcard';
 
-const Template: Story<FlashcardProps> = ({ ...args }: FlashcardProps) => <Flashcard {...args} />;
+const Template: Story<FlashcardProps> = (props: FlashcardProps) => <Flashcard {...props} />;
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   Back: 'An open source tool for developing UI components in isolation. It makes building stunning UIs organized and efficient.',
   BackSideProps: { elevation: 1, variant: 'elevation', square: true },
-  disabled: false,
   Front: 'What is storybook?',
   FrontSideProps: { elevation: 1, variant: 'elevation', square: true },
+  disabled: false,
+  showBackSideAdornment: true,
+  showFrontSideAdornment: false,
   startFlipped: false,
 };
 
@@ -43,11 +45,6 @@ export const DefaultStory: Story<FlashcardProps> = () => <Flashcard Back="Side B
 
 DefaultStory.storyName = 'Default';
 
-export default {
-  title: 'Layout/Flashcard',
-  component: DefaultStory,
-};
-
 export const FlippedStory: Story<FlashcardProps> = () => <Flashcard Back="Side B" Front="Side A" startFlipped={true} />;
 
 FlippedStory.storyName = 'Flipped';
@@ -73,3 +70,8 @@ export const NoAdornment: Story<FlashcardProps> = () => (
 );
 
 NoAdornment.storyName = 'No Adornment';
+
+export default {
+  title: 'Flashcard',
+  component: DefaultStory,
+};
