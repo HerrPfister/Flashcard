@@ -8,7 +8,7 @@ const Template: Story<FlashcardProps> = (props: FlashcardProps) => <Flashcard {.
 export const Playground = Template.bind({});
 
 Playground.args = {
-  Back: 'An open source tool for developing UI components in isolation. It makes building stunning UIs organized and efficient.',
+  Back: 'An open source tool for developing UI components in isolation. It makes building stunning UIs efficient.',
   BackSideProps: { elevation: 1, variant: 'elevation', square: true },
   Front: 'What is storybook?',
   FrontSideProps: { elevation: 1, variant: 'elevation', square: true },
