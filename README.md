@@ -12,8 +12,14 @@ After installing the dependencies. You can run the storybook server simply by ru
 
 ```tsx
 <div>
-    <Flashcard Back="This is the back of the card." Front="This is the front of the card." />
-    <Flashcard Back={<Typography>This is a styled card back</Typography>} Front={<Typography>This is a styled card front</Typography>} />
+    <Flashcard 
+        Back="This is the back of the card." 
+        Front="This is the front of the card." 
+    />
+    <Flashcard 
+        Back={<Typography>This is a styled card back</Typography>} 
+        Front={<Typography>This is a styled card front</Typography>} 
+    />
 </div>
 ```
 
