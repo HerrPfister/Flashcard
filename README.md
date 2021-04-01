@@ -4,7 +4,11 @@ A simple `flashcard` component to demonstrate storybook and the css flip animati
 
 > This is an example for a [DEV article](https://dev.to/herrpfister/storybook-experience-your-components-in-isolation-e61) that I wrote. However, it is still a fully functional component. Use it however you want!
 
-## How to use?
+## How do I run it?
+
+After installing the dependencies. You can run the storybook server simply by running the `yarn start` or `npm start` command.
+
+## How do I use it?
 
 ```tsx
 <div>
