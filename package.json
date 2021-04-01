@@ -23,13 +23,13 @@
     "@types/chance": "^1.1.1",
     "@types/jest": "^26.0.20",
     "@types/jss": "^10.0.0",
-    "@types/node": "^14.11.2",
     "@types/react": "^16.9.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.1.0",
     "chance": "^1.1.7",
+    "copyfiles": "^2.4.1",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
@@ -47,8 +47,10 @@
     "react-dom": "^16.13.1"
   },
   "scripts": {
-    "start": "start-storybook -p 6006",
     "build": "tsc -p ./tsconfig.build.json",
+    "postbuild": "copyfiles -u 1 \"src/**/*.{woff,woff2,eot}\" lib",
+    "clean": "rm -rf ./lib ./.build-cache ./storybook-static",
+    "start": "start-storybook -p 6006",
     "lint": "eslint ./src",
     "test": "jest"
   },
