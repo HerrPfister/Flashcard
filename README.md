@@ -1,6 +1,8 @@
 # Flashcard
 
-Example of a storybook for the [DEV article]()
+A simple `flashcard` component to demonstrate storybook and the css flip animation.
+
+> This is an example for [DEV article](https://dev.to/herrpfister/storybook-experience-your-components-in-isolation-e61) that I wrote. However, it is still a fully functional component. Use it however you want!
 
 ## How to use?
 
